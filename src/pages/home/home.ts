@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 @Component({
@@ -8,10 +9,13 @@ import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public admob: AdMobFree) {
-    this.showBanner();
+  constructor(public navCtrl: NavController, public admob: AdMobFree, private statusBar: StatusBar) {
+    // this.showBanner();
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('#000');
   }
-  
+
+
   showBanner() {
     let bannerConfig: AdMobFreeBannerConfig = {
        isTesting: true,
@@ -19,9 +23,9 @@ export class HomePage {
        id: 'ca-app-pub-3940256099942544/6300978111'
      };
       this.admob.banner.config(bannerConfig);
-      
+
       this.admob.banner.prepare().then(() => {
-      
+
       }).catch(e => console.log(e));
   }
 
